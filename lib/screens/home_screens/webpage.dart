@@ -8,14 +8,14 @@ import '../country_screen/country_page.dart';
 import 'panels/info_panel.dart';
 import 'panels/most_affected.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class WebPage extends StatefulWidget {
+  const WebPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<WebPage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<WebPage> {
   Map? worldData;
   fetchWorldWideData() async {
     http.Response response =
@@ -49,6 +49,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('COVID-19 Tracker'),
       ),
       body: SingleChildScrollView(
@@ -64,18 +65,18 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(
                     color: Colors.orange[800],
                     fontWeight: FontWeight.bold,
-                    fontSize: 16),
+                    fontSize: 25),
               ),
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                  const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   const Text(
                     'Worldwide',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -87,29 +88,30 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                     child: Container(
-                        decoration: BoxDecoration(
-                            color: kprimaryBlack,
-                            borderRadius: BorderRadius.circular(15)),
-                        padding: const EdgeInsets.all(10),
-                        child: const Text(
-                          'Regional',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        )),
+                      decoration: BoxDecoration(
+                          color: kprimaryBlack,
+                          borderRadius: BorderRadius.circular(15)),
+                      padding: const EdgeInsets.all(10),
+                      child: const Text(
+                        'Regional',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
             worldData == null
                 ? const CircularProgressIndicator()
-                : WorldwidePanel(worldData: worldData),
+                : WorldwidePanelWeb(worldData: worldData),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
                 'Most affected Countries',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(
@@ -120,14 +122,14 @@ class _HomePageState extends State<HomePage> {
                 : MostAffectedPanel(
                     countryData: countryData,
                   ),
-            const InfoPanel(),
+            const InfoPanelWeb(),
             const SizedBox(
               height: 20,
             ),
             const Center(
                 child: Text(
-              'WE ARE TOGETHER IN THE FIGHT',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              'WE ARE TOGETHER IN THE FIGHT\n   WITH LOVE FROM DAVID OH',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
             )),
             SizedBox(
               child: Align(

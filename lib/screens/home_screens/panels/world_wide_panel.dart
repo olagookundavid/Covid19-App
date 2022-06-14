@@ -15,50 +15,42 @@ class WorldwidePanel extends StatelessWidget {
       children: <Widget>[
         StatusPanel(
           title: 'CONFIRMED CASES',
-          panelColor: Colors.red,
-          textColor: Colors.red,
+          panelColor: Colors.blueGrey,
           count: worldData!['cases'].toString(),
         ),
         StatusPanel(
           title: 'TODAY\'S CASES',
-          panelColor: Colors.blue,
-          textColor: Colors.blue,
+          panelColor: Colors.grey,
           count: worldData!['todayCases'].toString(),
         ),
         StatusPanel(
           title: 'ACTIVE',
-          panelColor: Colors.red,
-          textColor: Colors.red,
+          panelColor: Colors.lightBlue,
           count: worldData!['active'].toString(),
         ),
         StatusPanel(
           title: 'RECOVERED',
           panelColor: Colors.green,
-          textColor: Colors.green,
           count: worldData!['recovered'].toString(),
         ),
         StatusPanel(
           title: 'DEATHS',
-          panelColor: Colors.grey,
-          textColor: Colors.grey,
+          panelColor: Colors.black87,
           count: worldData!['deaths'].toString(),
         ),
         StatusPanel(
           title: 'TODAY\'S DEATHS',
-          panelColor: Colors.blue,
-          textColor: Colors.blue,
+          panelColor: Colors.redAccent,
           count: worldData!['todayDeaths'].toString(),
         ),
         StatusPanel(
           title: 'CRITICAL',
-          panelColor: Colors.green,
-          textColor: Colors.green,
+          panelColor: Colors.red,
           count: worldData!['critical'].toString(),
         ),
         StatusPanel(
           title: 'AFFECTED COUNTRIES',
           panelColor: Colors.grey,
-          textColor: Colors.grey,
           count: worldData!['affectedCountries'].toString(),
         ),
       ],
@@ -68,14 +60,12 @@ class WorldwidePanel extends StatelessWidget {
 
 class StatusPanel extends StatelessWidget {
   final Color panelColor;
-  final Color textColor;
   final String title;
   final String count;
 
   const StatusPanel(
       {Key? key,
       required this.panelColor,
-      required this.textColor,
       required this.title,
       required this.count})
       : super(key: key);
@@ -94,16 +84,75 @@ class StatusPanel extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 16, color: textColor),
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
           ),
           Text(
             count,
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+            style: const TextStyle(
+                fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
           )
         ],
       ),
+    );
+  }
+}
+
+class WorldwidePanelWeb extends StatelessWidget {
+  final Map? worldData;
+
+  const WorldwidePanelWeb({Key? key, required this.worldData})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4, childAspectRatio: 2),
+      children: <Widget>[
+        StatusPanel(
+          title: 'CONFIRMED CASES',
+          panelColor: Colors.blueGrey,
+          count: worldData!['cases'].toString(),
+        ),
+        StatusPanel(
+          title: 'TODAY\'S CASES',
+          panelColor: Colors.grey,
+          count: worldData!['todayCases'].toString(),
+        ),
+        StatusPanel(
+          title: 'ACTIVE',
+          panelColor: Colors.lightBlue,
+          count: worldData!['active'].toString(),
+        ),
+        StatusPanel(
+          title: 'RECOVERED',
+          panelColor: Colors.green,
+          count: worldData!['recovered'].toString(),
+        ),
+        StatusPanel(
+          title: 'DEATHS',
+          panelColor: Colors.black87,
+          count: worldData!['deaths'].toString(),
+        ),
+        StatusPanel(
+          title: 'TODAY\'S DEATHS',
+          panelColor: Colors.redAccent,
+          count: worldData!['todayDeaths'].toString(),
+        ),
+        StatusPanel(
+          title: 'CRITICAL',
+          panelColor: Colors.red,
+          count: worldData!['critical'].toString(),
+        ),
+        StatusPanel(
+          title: 'AFFECTED COUNTRIES',
+          panelColor: Colors.grey,
+          count: worldData!['affectedCountries'].toString(),
+        ),
+      ],
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../Sources/datasource.dart';
 
 class FAQPage extends StatelessWidget {
@@ -22,7 +21,41 @@ class FAQPage extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: Text(DataSource.questionAnswers[index]['answer']),
+                  child: Text(DataSource.questionAnswers[index]['answer'],
+                      style: const TextStyle(letterSpacing: 2)),
+                )
+              ],
+            );
+          }),
+    );
+  }
+}
+
+class FAQPageWeb extends StatelessWidget {
+  const FAQPageWeb({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('FAQs'),
+      ),
+      body: ListView.builder(
+          itemCount: DataSource.questionAnswers.length,
+          itemBuilder: (context, index) {
+            return ExpansionTile(
+              title: Text(
+                DataSource.questionAnswers[index]['question'],
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              ),
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text(
+                    DataSource.questionAnswers[index]['answer'],
+                    style: const TextStyle(fontSize: 15, letterSpacing: 2),
+                  ),
                 )
               ],
             );
