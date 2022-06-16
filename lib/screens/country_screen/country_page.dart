@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../search/searchscreen.dart';
+
 class CountryPage extends StatefulWidget {
   const CountryPage({Key? key}) : super(key: key);
 
@@ -33,7 +35,9 @@ class _CountryPageState extends State<CountryPage> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.search),
-            onPressed: () {},
+            onPressed: () {
+              showSearch(context: context, delegate: Search(countryData!));
+            },
           )
         ],
         title: const Text('Country Stats'),
@@ -52,7 +56,7 @@ class _CountryPageState extends State<CountryPage> {
                     child: Row(
                       children: <Widget>[
                         Container(
-                          width: 200,
+                          width: double.infinity,
                           margin: const EdgeInsets.symmetric(horizontal: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

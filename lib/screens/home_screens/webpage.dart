@@ -1,4 +1,7 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
 import 'package:covid_app/screens/home_screens/panels/world_wide_panel.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import '../../Sources/constants.dart';
 import '../../Sources/datasource.dart';
@@ -49,102 +52,119 @@ class _HomePageState extends State<WebPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text('COVID-19 Tracker'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 100,
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(10),
-              color: Colors.orange[100],
-              child: Text(
-                DataSource.quote,
-                style: TextStyle(
-                    color: Colors.orange[800],
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25),
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  const Text(
-                    'Worldwide',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CountryPage(),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: kprimaryBlack,
-                          borderRadius: BorderRadius.circular(15)),
-                      padding: const EdgeInsets.all(10),
-                      child: const Text(
-                        'Regional',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            worldData == null
-                ? const CircularProgressIndicator()
-                : WorldwidePanelWeb(worldData: worldData),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: Text(
-                'Most affected Countries',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            countryData == null
-                ? Container()
-                : MostAffectedPanel(
-                    countryData: countryData,
-                  ),
-            const InfoPanelWeb(),
-            const SizedBox(
-              height: 20,
-            ),
-            const Center(
+          centerTitle: true,
+          title: const Text('COVID-19 Tracker'),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Theme.of(context).brightness == Brightness.light
+                    ? Icons.lightbulb_outline
+                    : Icons.highlight),
+                onPressed: () {
+                  DynamicTheme.of(context).setBrightness(
+                      Theme.of(context).brightness == Brightness.light
+                          ? Brightness.dark
+                          : Brightness.light);
+                })
+          ]),
+      body: RefreshIndicator(
+        onRefresh: () {
+          return fetchData();
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 100,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(10),
+                color: Colors.orange[100],
                 child: Text(
-              'WE ARE TOGETHER IN THE FIGHT\n   WITH LOVE FROM DAVID OH',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-            )),
-            SizedBox(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  'Copyright © 2022 | David-oH',
+                  DataSource.quote,
                   style: TextStyle(
-                    color: Colors.blueGrey.shade300,
-                    fontSize: 20,
-                  ),
+                      color: Colors.orange[800],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25),
                 ),
               ),
-              height: 50,
-            )
-          ],
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    const Text(
+                      'Worldwide',
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CountryPage(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: kprimaryBlack,
+                            borderRadius: BorderRadius.circular(15)),
+                        padding: const EdgeInsets.all(10),
+                        child: const Text(
+                          'Regional',
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              worldData == null
+                  ? const CircularProgressIndicator()
+                  : WorldwidePanelWeb(worldData: worldData),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                child: Text(
+                  'Most affected Countries',
+                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              countryData == null
+                  ? Container()
+                  : MostAffectedPanel(
+                      countryData: countryData,
+                    ),
+              const InfoPanelWeb(),
+              const SizedBox(
+                height: 20,
+              ),
+              const Center(
+                  child: Text(
+                'WE ARE TOGETHER IN THE FIGHT\n   WITH LOVE FROM DAVID OH',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              )),
+              SizedBox(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    'Copyright © 2022 | David-oH',
+                    style: TextStyle(
+                      color: Colors.blueGrey.shade300,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+                height: 50,
+              )
+            ],
+          ),
         ),
       ),
     );
